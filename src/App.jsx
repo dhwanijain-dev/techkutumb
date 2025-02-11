@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Tldraw } from "tldraw";
 import "tldraw/tldraw.css";
+import { useSyncDemo } from '@tldraw/sync'
 import { RoomProvider } from "@liveblocks/react";
 import DailyIframe from "@daily-co/daily-js";
 import ChatContainer from "./components/ChatContainer";
@@ -48,6 +49,7 @@ export default function CollaborativeWhiteboard() {
       setIsInCall(false);
     }
   };
+  const store = useSyncDemo({ roomId: 'myapp-abc123' })
   return (
     <RoomProvider id={ROOM_NAME}>
       <div className="h-screen w-screen flex flex-col items-center justify-center">
@@ -60,7 +62,7 @@ export default function CollaborativeWhiteboard() {
         
 
         <div className="w-full h-screen  rounded-xl shadow-lg overflow-hidden">
-          <Tldraw persistenceKey={ROOM_NAME} autoFocus />
+          <Tldraw persistenceKey={ROOM_NAME} autoFocus store={store} />
         </div>
         {/* <ChatBox/> */}
         <div className="absolute bottom-10 right-10">
